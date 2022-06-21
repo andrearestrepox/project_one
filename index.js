@@ -1,9 +1,11 @@
+
+
 let lyrics = [
     {
         lyric: "I've lost my mind, I've spent the night crying on the floor of my bathroom But you're so unaffected, I really don't get it",
         song: "Good 4 U",
         genre: "POP",
-        albumArt: 
+        albumArt: '' ,
         sound: ''
     },
     {
