@@ -13,25 +13,25 @@
 </head>
 <body>
     <!-- Sidebar -->
-    <div class="categories_sidebar">
+    <div class="categories_sidebar" style="width: 350px; height:60%;">
         <h2 id="sidebar_title">CATEGORIES</h2>
         <ul class="no-bullet">
             <li>
-                <button type="button" id="pop-btn" class="genre-btn">POP</button>
+                <button type="button" id="todays-btn" class="genre-btn">Today's Hits</button>
             </li>
             <li>
-                <button type="button" id="rnb-btn" class="genre-btn">RnB</button>
+                <button type="button" id="2000s-btn" class="genre-btn">2000s</button>
             </li>
             <li>
-                <button type="button" id="rock-btn" class="genre-btn">ROCK</button>
+                <button type="button" id="90s-btn" class="genre-btn">90s</button>
             </li>
             <li>
-                <button type="button" id="indie-btn" class="genre-btn">INDIE</button>
+                <button type="button" id="80s-btn" class="genre-btn">80s</button>
             <li>
-                <button type="button" id="country-btn" class="genre-btn">COUNTRY</button>
+                <button type="button" id="70s-btn" class="genre-btn">70s</button>
             </li>
             <li>
-                <button type="button" id="latin-btn" class="genre-btn">LATIN</button>
+               <!--- <button type="button" id="latin-btn" class="genre-btn">LATIN</button>
             </li>
             <li>
                 <button type="button" id="2000s-btn" class="genre-btn">2000s</button>
@@ -44,7 +44,7 @@
             </li>
             <li>
                 <button type="button" id="70s-btn" class="genre-btn">70s</button>
-            </li>
+            </li> -->
         </ul>
 
     </div>
@@ -52,12 +52,16 @@
 
     <!--start game side of the screen-->
     <div class="container">
-        <div id="circle">25</div>
+        <div id="circle">5</div>
+        <div id="lyricDisplayWindow">
+            <h1 id="lyricDisplay"></h1>
+        </div>
+            <div class="startBtn">
+                <button onclick="startQuiz()" id="quizStart">Start Quiz</button>
+            </div>
     </div>
 
     <!--start game side of the screen-->
-
-
     
 </body>
 <script src="index.js"></script>

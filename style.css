@@ -41,11 +41,10 @@ div.container{
     background-color: white;
     padding-right: 45%;
     padding-left: 10.5%;
-    padding-top: 50%;
     margin-top: 40px;
     margin-bottom: 40px;
     width: 300px;
-    float:right;
+    float:right;  
 }
 
 #circle {
@@ -61,5 +60,21 @@ div.container{
     font-family:'Bebas Neue', cursive;
 }
 
+div .startBtn {
+   float: right;
+   padding-bottom: 30%;
+}
 
+#quizStart {
+    background-color: lightcoral;
+    width:250px;
+    height: 50px;
+    float: center;
+}
 
+#lyricDisplayWindow {
+    height: 500px;
+    width: 600px;
+    border: dotted red;
+    color: black;
+}
