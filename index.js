@@ -1,5 +1,4 @@
 
-
 let lyrics = [
     {
         lyric: "I've lost my mind, I've spent the night crying on the floor of my bathroom But you're so unaffected, I really don't get it",
@@ -12,28 +11,28 @@ let lyrics = [
         lyric: "I've never been a fan of change But I'd follow you to any place If it's Hollywood or Bishopsgate I'm coming too If you're feelin' down I just wanna make you happier, baby",
         song: "Late Night Talking",
         genre: "Today's Hits",
-        albumArt: '' ,
+        albumArt: './Images/olivia rod album art.webp' ,
         sound: ''
     },
     {
         lyric: "There ain't no room for things to change When we are both so deeply stuck in our ways You can't deny how hard I have tried",
         song: "Easy on Me",
         genre: "Today's Hits",
-        albumArt: '' ,
+        albumArt: './Images/olivia rod album art.webp' ,
         sound: ''
     },
     {
         lyric: "Aren't you the guy who tried to Hurt me with the word goodbye? Though it took some time to survive you I'm better on the other side I'm all good already So moved on, it's scary I'm not where you left me at all, so",
         song: "Don't Start Now",
         genre: "Today's Hits",
-        albumArt: '' ,
+        albumArt: './Images/olivia rod album art.webp' ,
         sound: ''
     },
     {
         lyric: "So don't waste the time I don't have And don't try to make me feel bad I could talk about every time that you showed up on time But I'd have an empty line 'cause you never did",
         song: "Happier Than Ever",
         genre: "Today's Hits",
-        albumArt: '' ,
+        albumArt: './Images/olivia rod album art.webp' ,
         sound: ''
     },
     // //{
@@ -216,6 +215,7 @@ let lyrics = [
 
 //MAIN GAME//
 
+
 // function genreSelect(event){
 //     let genreArray = [];
 //     let selectedGenre = event.target.innerHTML
@@ -229,7 +229,13 @@ let genreArray = lyrics.filter(singleLyric => {
 return genreArray;
 }
 
-
+// function artSelect(selectedArt) {
+//     let albumArtArray = lyrics.filter(singleArt => {selectedArt;
+//         return singleArt.albumArt === selectedArt;
+//     })
+//    return albumArtArray;
+// }
+console.log("lyrics.song", lyrics[0].song)
 
 
 
@@ -237,6 +243,77 @@ return genreArray;
 //  let filteredArray = genreSelect("2000s")
 //  return filteredArray[Math.floor(Math.random() * filteredArray.length)].lyric
 
+
+//Today's Hits button//
+
+    document.getElementById("todays-btn").onclick =  () => {
+        let filteredArray = genreSelect("Today's Hits");
+        let randomIndex = Math.floor(Math.random() * filteredArray.length);
+        let selectedLyric = filteredArray[randomIndex].lyric;
+        //let selectedSong = filteredArray[randomIndex].song
+    
+    
+        let lyricDisplay = document.querySelector('h1');
+        //console.log(document.querySelector('h1'))
+         //console.log("lyricDisplay ==>", lyricDisplay)
+        lyricDisplay.innerHTML = selectedLyric
+    
+        const possibleAnswers = document.querySelector('.possibleAnswers')
+        possibleAnswers.innerHTML = `<button type=button>A</button><button type=button>B</button> <br> <button type=button>C</button><button type=button>D</button>` 
+        buttonAnswers()
+        
+        // let answer = (selectedSong);
+        // let wrongAnswersArray = lyrics.filter(element => {
+        //     return (selectedSong !== element.song)
+        // })
+        // let generalIndex = Math.floor(Math.random() * wrongAnswersArray.length); 
+        // let wrongAnswer1 = lyrics[generalIndex].song;
+        // wrongAnswersArray.splice(generalIndex, 1)
+        //  generalIndex = Math.floor(Math.random() * wrongAnswersArray.length); 
+    
+        // let wrongAnswer2 = lyrics[generalIndex].song;
+        // wrongAnswersArray.splice(generalIndex, 1)
+        // generalIndex = Math.floor(Math.random() * wrongAnswersArray.length); 
+        // let wrongAnswer3 = lyrics[generalIndex].song;
+        // wrongAnswersArray.splice(generalIndex, 1)
+    
+        // let buttonAnswersArray = [];
+        // buttonAnswersArray.push(wrongAnswer1, wrongAnswer2, wrongAnswer3, answer);
+        // console.log(buttonAnswersArray)
+        // console.log("wrongAnswer1", wrongAnswer1)
+        // console.log("wrongAnswer2", wrongAnswer2)
+        // console.log("wrongAnswer3", wrongAnswer3)
+    
+    }
+function buttonAnswers (){
+        let filteredArray = ("genreOfChoice")
+        let randomIndex = Math.floor(Math.random() * filteredArray.length);
+        let selectedSong = filteredArray[randomIndex].song
+        let answer = (selectedSong);
+        let wrongAnswersArray = lyrics.filter(element => {
+            return (selectedSong !== element.song)
+        })
+        let generalIndex = Math.floor(Math.random() * wrongAnswersArray.length); 
+        let wrongAnswer1 = lyrics[generalIndex].song;
+        wrongAnswersArray.splice(generalIndex, 1)
+         generalIndex = Math.floor(Math.random() * wrongAnswersArray.length); 
+    
+        let wrongAnswer2 = lyrics[generalIndex].song;
+        wrongAnswersArray.splice(generalIndex, 1)
+        generalIndex = Math.floor(Math.random() * wrongAnswersArray.length); 
+        let wrongAnswer3 = lyrics[generalIndex].song;
+        wrongAnswersArray.splice(generalIndex, 1)
+    
+        let buttonAnswersArray = [];
+        buttonAnswersArray.push(wrongAnswer1, wrongAnswer2, wrongAnswer3, answer);
+        console.log(buttonAnswersArray)
+        console.log("wrongAnswer1", wrongAnswer1)
+        console.log("wrongAnswer2", wrongAnswer2)
+        console.log("wrongAnswer3", wrongAnswer3)
+    
+}
+
+//2000s button//
 document.getElementById("2000s-btn").onclick =  () => {
     let filteredArray = genreSelect("2000s");
     let randomIndex = Math.floor(Math.random() * filteredArray.length);
@@ -244,23 +321,54 @@ document.getElementById("2000s-btn").onclick =  () => {
     let lyricDisplay = document.querySelector('h1');
     //console.log(document.querySelector('h1'))
      //console.log("lyricDisplay ==>", lyricDisplay)
-    lyricDisplay.innerHTML = selectedLyric
-    //console.log("lyricDisplay.innerHTML -->", lyricDisplay.innerHTML)   
+    lyricDisplay.innerHTML = selectedLyric 
+
+    const possibleAnswers = document.querySelector('.possibleAnswers')
+    possibleAnswers.innerHTML = `<button type=button>A</button><button type=button>B</button> <br> <button type=button>C</button><button type=button>D</button>` 
+        buttonAnswers()
 }
-document.getElementById("todays-btn").onclick =  () => {
-    let filteredArray = genreSelect("Today's Hits");
+//90s button//
+document.getElementById("90s-btn").onclick =  () => {
+    let filteredArray = genreSelect("90s");
     let randomIndex = Math.floor(Math.random() * filteredArray.length);
     let selectedLyric = filteredArray[randomIndex].lyric;
     let lyricDisplay = document.querySelector('h1');
     //console.log(document.querySelector('h1'))
      //console.log("lyricDisplay ==>", lyricDisplay)
     lyricDisplay.innerHTML = selectedLyric
+    const possibleAnswers = document.querySelector('.possibleAnswers')
+    possibleAnswers.innerHTML = `<button type=button>A</button><button type=button>B</button> <br> <button type=button>C</button><button type=button>D</button>` 
+        buttonAnswers()
+
+}
+//80s button//
+document.getElementById("80s-btn").onclick =  () => {
+    let filteredArray = genreSelect("80s");
+    let randomIndex = Math.floor(Math.random() * filteredArray.length);
+    let selectedLyric = filteredArray[randomIndex].lyric;
+    let lyricDisplay = document.querySelector('h1');
+    //console.log(document.querySelector('h1'))
+     //console.log("lyricDisplay ==>", lyricDisplay)
+    lyricDisplay.innerHTML = selectedLyric
+    const possibleAnswers = document.querySelector('.possibleAnswers')
+    possibleAnswers.innerHTML = `<button type=button>A</button><button type=button>B</button> <br> <button type=button>C</button><button type=button>D</button>` 
+        buttonAnswers()
+}
+//70s button//
+document.getElementById("70s-btn").onclick =  () => {
+    let filteredArray = genreSelect("70s");
+    let randomIndex = Math.floor(Math.random() * filteredArray.length);
+    let selectedLyric = filteredArray[randomIndex].lyric;
+    let lyricDisplay = document.querySelector('h1');
+    //console.log(document.querySelector('h1'))
+     //console.log("lyricDisplay ==>", lyricDisplay)
+    lyricDisplay.innerHTML = selectedLyric
+    const possibleAnswers = document.querySelector('.possibleAnswers')
+    possibleAnswers.innerHTML = `<button type=button>A</button><button type=button>B</button> <br> <button type=button>C</button><button type=button>D</button>` 
+        buttonAnswers()
 }
 
 
-
-
-// document.getElementById("todays-btn").onclick = genreSelect() 
 // document.getElementById("90s-btn").onclick = genreSelect()
 // document.getElementById("80s-btn").onclick = genreSelect() 
 // document.getElementById("70s-btn").onclick = genreSelect()
