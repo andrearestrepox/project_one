@@ -214,7 +214,8 @@ let lyrics = [
 ]
 
 //MAIN GAME//
-
+let score = 0
+let resultsDisplay = document.querySelector('h3')
 
 // function genreSelect(event){
 //     let genreArray = [];
@@ -243,15 +244,77 @@ console.log("lyrics.song", lyrics[0].song)
 //  let filteredArray = genreSelect("2000s")
 //  return filteredArray[Math.floor(Math.random() * filteredArray.length)].lyric
 
+function generateRandomIndex(array){
+    const randomIndex = Math.floor(Math.random() * array.length)
+    return randomIndex;
+}
+
+function buttonAnswers (providedAnswer){
+        // array of possible wrong
+        let wrongAnswersArray = lyrics.filter(element => {
+            return (providedAnswer !== element.song)
+        })
+        console.log("wrongAnswersArray", wrongAnswersArray)
+
+        let generalIndex = generateRandomIndex(wrongAnswersArray); 
+        let wrongAnswer1 = lyrics[generalIndex].song;
+        wrongAnswersArray.splice(generalIndex, 1)
+        console.log(wrongAnswersArray)
+         generalIndex = generateRandomIndex(wrongAnswersArray) 
+        let wrongAnswer2 = lyrics[generalIndex].song;
+        wrongAnswersArray.splice(generalIndex, 1)
+            console.log(wrongAnswersArray)
+        generalIndex = generateRandomIndex(wrongAnswersArray)
+        let wrongAnswer3 = lyrics[generalIndex].song;
+        wrongAnswersArray.splice(generalIndex, 1)
+        
+        let buttonAnswersArray = [];
+        buttonAnswersArray.push(wrongAnswer1, wrongAnswer2, wrongAnswer3, providedAnswer);
+        console.log("buttonAnswersArray", buttonAnswersArray)
+        console.log("wrongAnswer1", wrongAnswer1)
+        console.log("wrongAnswer2", wrongAnswer2)
+        console.log("wrongAnswer3", wrongAnswer3)
+
+       let firstRandomAnswerIndex = generateRandomIndex(buttonAnswersArray)
+       let firstRandomAnswer = buttonAnswersArray[firstRandomAnswerIndex]
+       buttonAnswersArray.splice(firstRandomAnswerIndex, 1)
+    //    console.log("randAnswer1", firstRandomAnswerIndex, firstRandomAnswer)
+    //    console.log("updatedArray", buttonAnswersArray)
+
+       let secondRandomAnswerIndex = generateRandomIndex(buttonAnswersArray)
+       let secondRandomAnswer = buttonAnswersArray[secondRandomAnswerIndex]
+       buttonAnswersArray.splice(secondRandomAnswerIndex, 1)
+    //    console.log("randAnswer2", secondRandomAnswerIndex, secondRandomAnswer)
+    //    console.log("updatedArray", buttonAnswersArray)
+
+       let thirdRandomAnswerIndex = generateRandomIndex(buttonAnswersArray)
+       let thirdRandomAnswer = buttonAnswersArray[thirdRandomAnswerIndex]
+       buttonAnswersArray.splice(thirdRandomAnswerIndex, 1)
+    //    console.log("randAnswer3", thirdRandomAnswerIndex, thirdRandomAnswer)
+    //    console.log("updatedArray", buttonAnswersArray)
+
+       let fourthRandomAnswer = buttonAnswersArray[0]
+    //    console.log("randAnswer4", fourthRandomAnswer)
+
+       return `<button class="randAnswer" type=button>${firstRandomAnswer}</button><button class="randAnswer" type=button>${secondRandomAnswer}</button><button class="randAnswer" type=button>${thirdRandomAnswer}</button><button class="randAnswer" type=button>${fourthRandomAnswer}</button>`
+
+
+}
+
+
+
+
+
 
 //Today's Hits button//
-
     document.getElementById("todays-btn").onclick =  () => {
+        resultsDisplay.innerText = ""
         let filteredArray = genreSelect("Today's Hits");
-        let randomIndex = Math.floor(Math.random() * filteredArray.length);
+        let randomIndex = generateRandomIndex(filteredArray)
         let selectedLyric = filteredArray[randomIndex].lyric;
-        //let selectedSong = filteredArray[randomIndex].song
-    
+        let answer = filteredArray[randomIndex].song
+
+        console.log("answer", answer)
     
         let lyricDisplay = document.querySelector('h1');
         //console.log(document.querySelector('h1'))
@@ -259,143 +322,202 @@ console.log("lyrics.song", lyrics[0].song)
         lyricDisplay.innerHTML = selectedLyric
     
         const possibleAnswers = document.querySelector('.possibleAnswers')
-        possibleAnswers.innerHTML = `<button type=button>A</button><button type=button>B</button> <br> <button type=button>C</button><button type=button>D</button>` 
-        buttonAnswers()
-        
-        // let answer = (selectedSong);
-        // let wrongAnswersArray = lyrics.filter(element => {
-        //     return (selectedSong !== element.song)
-        // })
-        // let generalIndex = Math.floor(Math.random() * wrongAnswersArray.length); 
-        // let wrongAnswer1 = lyrics[generalIndex].song;
-        // wrongAnswersArray.splice(generalIndex, 1)
-        //  generalIndex = Math.floor(Math.random() * wrongAnswersArray.length); 
-    
-        // let wrongAnswer2 = lyrics[generalIndex].song;
-        // wrongAnswersArray.splice(generalIndex, 1)
-        // generalIndex = Math.floor(Math.random() * wrongAnswersArray.length); 
-        // let wrongAnswer3 = lyrics[generalIndex].song;
-        // wrongAnswersArray.splice(generalIndex, 1)
-    
-        // let buttonAnswersArray = [];
-        // buttonAnswersArray.push(wrongAnswer1, wrongAnswer2, wrongAnswer3, answer);
-        // console.log(buttonAnswersArray)
-        // console.log("wrongAnswer1", wrongAnswer1)
-        // console.log("wrongAnswer2", wrongAnswer2)
-        // console.log("wrongAnswer3", wrongAnswer3)
-    
+        // buttonAnswers(answer)
+        possibleAnswers.innerHTML = buttonAnswers(answer)
+        //add event listeners to all answer buttons and cehck text against correct value upon click
+        const buttonAnswers2Check = document.querySelectorAll(".randAnswer")
+        // console.log("buttonAnswers2Check[0]", buttonAnswers2Check[0])
+        // console.log("buttonAnswers2Check[0].innerHTML", buttonAnswers2Check[0].innerHTML)
+
+
+        for(let i = 0; i < buttonAnswers2Check.length; i++){
+            buttonAnswers2Check[i].addEventListener('click', (event) => {
+                console.log("event.currentTarget", event.currentTarget)
+                if( event.currentTarget.innerHTML === answer){
+                    score++
+                    document.querySelector('#scoreTracker').innerHTML = score
+                    return resultsDisplay.innerText = 'Correct';
+                }else{
+                    
+                    return resultsDisplay.innerText = 'Wrong';
+                }
+            })
+           
+        }
     }
-function buttonAnswers (){
-        let filteredArray = ("genreOfChoice")
-        let randomIndex = Math.floor(Math.random() * filteredArray.length);
-        let selectedSong = filteredArray[randomIndex].song
-        let answer = (selectedSong);
-        let wrongAnswersArray = lyrics.filter(element => {
-            return (selectedSong !== element.song)
-        })
-        let generalIndex = Math.floor(Math.random() * wrongAnswersArray.length); 
-        let wrongAnswer1 = lyrics[generalIndex].song;
-        wrongAnswersArray.splice(generalIndex, 1)
-         generalIndex = Math.floor(Math.random() * wrongAnswersArray.length); 
-    
-        let wrongAnswer2 = lyrics[generalIndex].song;
-        wrongAnswersArray.splice(generalIndex, 1)
-        generalIndex = Math.floor(Math.random() * wrongAnswersArray.length); 
-        let wrongAnswer3 = lyrics[generalIndex].song;
-        wrongAnswersArray.splice(generalIndex, 1)
-    
-        let buttonAnswersArray = [];
-        buttonAnswersArray.push(wrongAnswer1, wrongAnswer2, wrongAnswer3, answer);
-        console.log(buttonAnswersArray)
-        console.log("wrongAnswer1", wrongAnswer1)
-        console.log("wrongAnswer2", wrongAnswer2)
-        console.log("wrongAnswer3", wrongAnswer3)
-    
-}
 
 //2000s button//
 document.getElementById("2000s-btn").onclick =  () => {
+    resultsDisplay.innerText = ""
     let filteredArray = genreSelect("2000s");
-    let randomIndex = Math.floor(Math.random() * filteredArray.length);
+    let randomIndex = generateRandomIndex(filteredArray)
     let selectedLyric = filteredArray[randomIndex].lyric;
-    let lyricDisplay = document.querySelector('h1');
-    //console.log(document.querySelector('h1'))
-     //console.log("lyricDisplay ==>", lyricDisplay)
-    lyricDisplay.innerHTML = selectedLyric 
+    let answer = filteredArray[randomIndex].song
+    console.log("answer", answer)
 
-    const possibleAnswers = document.querySelector('.possibleAnswers')
-    possibleAnswers.innerHTML = `<button type=button>A</button><button type=button>B</button> <br> <button type=button>C</button><button type=button>D</button>` 
-        buttonAnswers()
-}
-//90s button//
-document.getElementById("90s-btn").onclick =  () => {
-    let filteredArray = genreSelect("90s");
-    let randomIndex = Math.floor(Math.random() * filteredArray.length);
-    let selectedLyric = filteredArray[randomIndex].lyric;
     let lyricDisplay = document.querySelector('h1');
     //console.log(document.querySelector('h1'))
      //console.log("lyricDisplay ==>", lyricDisplay)
     lyricDisplay.innerHTML = selectedLyric
+
     const possibleAnswers = document.querySelector('.possibleAnswers')
-    possibleAnswers.innerHTML = `<button type=button>A</button><button type=button>B</button> <br> <button type=button>C</button><button type=button>D</button>` 
-        buttonAnswers()
+    possibleAnswers.innerHTML = buttonAnswers(answer)
+        //add event listeners to all answer buttons and cehck text against correct value upon click
+        const buttonAnswers2Check = document.querySelectorAll(".randAnswer")
+        // console.log("buttonAnswers2Check[0]", buttonAnswers2Check[0])
+        // console.log("buttonAnswers2Check[0].innerHTML", buttonAnswers2Check[0].innerHTML)
+
+
+        for(let i = 0; i < buttonAnswers2Check.length; i++){
+            buttonAnswers2Check[i].addEventListener('click', (event) => {
+                console.log("event.currentTarget", event.currentTarget)
+                if( event.currentTarget.innerHTML === answer){
+                    score++
+                    document.querySelector('#scoreTracker').innerHTML = score
+                    return resultsDisplay.innerText = 'Correct';
+                }else{
+                    
+                    return resultsDisplay.innerText = 'Wrong';
+                }
+            })
+           
+        }
+}
+//90s button//
+document.getElementById("90s-btn").onclick =  () => {
+    resultsDisplay.innerText = ""
+    let filteredArray = genreSelect("90s");
+    let randomIndex = generateRandomIndex(filteredArray)
+    let selectedLyric = filteredArray[randomIndex].lyric;
+    let answer = filteredArray[randomIndex].song
+    console.log("answer", answer)
+
+    let lyricDisplay = document.querySelector('h1');
+    //console.log(document.querySelector('h1'))
+     //console.log("lyricDisplay ==>", lyricDisplay)
+    lyricDisplay.innerHTML = selectedLyric
+
+    const possibleAnswers = document.querySelector('.possibleAnswers')
+    possibleAnswers.innerHTML = buttonAnswers(answer)
+        //add event listeners to all answer buttons and cehck text against correct value upon click
+        const buttonAnswers2Check = document.querySelectorAll(".randAnswer")
+        // console.log("buttonAnswers2Check[0]", buttonAnswers2Check[0])
+        // console.log("buttonAnswers2Check[0].innerHTML", buttonAnswers2Check[0].innerHTML)
+
+
+        for(let i = 0; i < buttonAnswers2Check.length; i++){
+            buttonAnswers2Check[i].addEventListener('click', (event) => {
+                console.log("event.currentTarget", event.currentTarget)
+                if( event.currentTarget.innerHTML === answer){
+                    score++
+                    document.querySelector('#scoreTracker').innerHTML = score
+                    return resultsDisplay.innerText = 'Correct';
+                }else{
+                    
+                    return resultsDisplay.innerText = 'Wrong';
+                }
+            })
+           
+        }
 
 }
 //80s button//
 document.getElementById("80s-btn").onclick =  () => {
+    resultsDisplay.innerText = ""
     let filteredArray = genreSelect("80s");
-    let randomIndex = Math.floor(Math.random() * filteredArray.length);
+    let randomIndex = generateRandomIndex(filteredArray)
     let selectedLyric = filteredArray[randomIndex].lyric;
+    let answer = filteredArray[randomIndex].song
+    console.log("answer", answer)
+
     let lyricDisplay = document.querySelector('h1');
     //console.log(document.querySelector('h1'))
      //console.log("lyricDisplay ==>", lyricDisplay)
     lyricDisplay.innerHTML = selectedLyric
+
     const possibleAnswers = document.querySelector('.possibleAnswers')
-    possibleAnswers.innerHTML = `<button type=button>A</button><button type=button>B</button> <br> <button type=button>C</button><button type=button>D</button>` 
-        buttonAnswers()
+    possibleAnswers.innerHTML = buttonAnswers(answer)
+    //add event listeners to all answer buttons and cehck text against correct value upon click
+    const buttonAnswers2Check = document.querySelectorAll(".randAnswer")
+    // console.log("buttonAnswers2Check[0]", buttonAnswers2Check[0])
+    // console.log("buttonAnswers2Check[0].innerHTML", buttonAnswers2Check[0].innerHTML)
+
+
+    for(let i = 0; i < buttonAnswers2Check.length; i++){
+        buttonAnswers2Check[i].addEventListener('click', (event) => {
+            console.log("event.currentTarget", event.currentTarget)
+            if( event.currentTarget.innerHTML === answer){
+                score++
+                document.querySelector('#scoreTracker').innerHTML = score
+                return resultsDisplay.innerText = 'Correct';
+            }else{
+                
+                return resultsDisplay.innerText = 'Wrong';
+            }
+        })
+       
+    }
 }
 //70s button//
 document.getElementById("70s-btn").onclick =  () => {
+    resultsDisplay.innerText = ""
     let filteredArray = genreSelect("70s");
-    let randomIndex = Math.floor(Math.random() * filteredArray.length);
+    let randomIndex = generateRandomIndex(filteredArray)
     let selectedLyric = filteredArray[randomIndex].lyric;
+    let answer = filteredArray[randomIndex].song
+    console.log("answer", answer)
+
     let lyricDisplay = document.querySelector('h1');
     //console.log(document.querySelector('h1'))
      //console.log("lyricDisplay ==>", lyricDisplay)
     lyricDisplay.innerHTML = selectedLyric
+
     const possibleAnswers = document.querySelector('.possibleAnswers')
-    possibleAnswers.innerHTML = `<button type=button>A</button><button type=button>B</button> <br> <button type=button>C</button><button type=button>D</button>` 
-        buttonAnswers()
+    possibleAnswers.innerHTML = buttonAnswers(answer)
+        //add event listeners to all answer buttons and cehck text against correct value upon click
+        const buttonAnswers2Check = document.querySelectorAll(".randAnswer")
+        // console.log("buttonAnswers2Check[0]", buttonAnswers2Check[0])
+        // console.log("buttonAnswers2Check[0].innerHTML", buttonAnswers2Check[0].innerHTML)
+
+
+        for(let i = 0; i < buttonAnswers2Check.length; i++){
+            buttonAnswers2Check[i].addEventListener('click', (event) => {
+                console.log("event.currentTarget", event.currentTarget)
+                if( event.currentTarget.innerHTML === answer){
+                    score++
+                    document.querySelector('#scoreTracker').innerHTML = score
+                    return resultsDisplay.innerText = 'Correct';
+                }else{
+                    
+                    return resultsDisplay.innerText = 'Wrong';
+                }
+            })
+           
+        }
 }
-
-
-// document.getElementById("90s-btn").onclick = genreSelect()
-// document.getElementById("80s-btn").onclick = genreSelect() 
-// document.getElementById("70s-btn").onclick = genreSelect()
-
 
 
 //timer section//
-let timer = 5;
-function startQuiz() {
-    function countdownTimer() {
-        //const intervalID = setInterval(() => {
-                if(timer > 0){
-                    timer = timer -1
-                    console.log(timer)
-                }else{
-                    return "times up!"
-                }
-                return `${timer} seconds remaining`
-            //}, 
-           // 1000)
-        }
-    const intervalID = setInterval(() => {
-        const timerDisplay = document.getElementById("circle")
-        timerDisplay.innerHTML = countdownTimer()
-        console.log("buttonClicked")
-    },1000)
-}
+// let timer = 60;
+
+// function start
+// function startQuiz() {
+//     function countdownTimer() {
+//         //const intervalID = setInterval(() => {
+//                 if(timer > 0){
+//                     timer = timer -1
+//                     console.log(timer)
+//                 }else{
+//                     return "times up!"
+//                 }
+//                 return `${timer} seconds remaining`
+//         }
+//     const intervalID = setInterval(() => {
+//         const timerDisplay = document.getElementById("circle")
+//         timerDisplay.innerHTML = countdownTimer()
+//         console.log("buttonClicked")
+//     },1000)
+// }
 //timer section//
 
 
